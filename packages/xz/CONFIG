@@ -1,0 +1,6 @@
+PACKAGE=xz
+VERSION=5.1-alpha
+ARCH=iphoneos-arm
+SECTION=user/shell
+PRIORITY=optional
+MAINTAINER=pancake <pancake@nopcode.org>

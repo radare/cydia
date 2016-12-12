@@ -1,0 +1,7 @@
+TODO
+====
+* add symlink in dummylibs for libstdc++.dylib to fix g++
+* add symlink in dummylibs for libc.dylib
+* devdeps is not working yet ... FIX
+* rename dummylibs to gcc-fix
+* git depends on expat
