@@ -1,6 +1,0 @@
-PACKAGE=perl
-VERSION=5.24.0
-ARCH=iphoneos-arm
-SECTION=user/shell
-PRIORITY=optional
-MAINTAINER=pancake <pancake@nopcode.org>

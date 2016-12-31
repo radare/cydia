@@ -1,5 +1,4 @@
 include ./CONFIG
-DEPENDS=expat cacert
 PACKAGE_DIR?=${PWD}
 
 GIT_VERSION=$(VERSION)
