@@ -18,7 +18,7 @@ root: $(VERSION).tar.gz
 	cd ired-$(VERSION) ; $(MAKE) install DESTDIR=$(shell pwd)/root PREFIX=/usr
 
 $(VERSION).tar.gz:
-	wget https://github.com/radare/ired/archive/$(VERSION).tar.gz
+	wget -c https://github.com/radare/ired/archive/$(VERSION).tar.gz
 
 EXTRA_CLEAN=custom_clean
 .PHONY: $(EXTRA_CLEAN)
