@@ -4,3 +4,4 @@ ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional
 MAINTAINER=pancake <pancake@nopcode.org>
+DEPENDS=glib_thin, libffi_thin, gettext_thin
