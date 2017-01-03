@@ -13,6 +13,17 @@ all: root
 	${MAKE} control
 	${MAKE} deb
 
+thin:
+	rm -rf root
+	tar xzf root.tar.gz
+	rm -rf root/usr/share
+	rm -rf root/usr/bin
+	rm -rf root/usr/lib/pkgconfig
+	rm -rf root/usr/include
+	rm -rf root/usr/lib/gio
+	rm -rf root/usr/lib/glib-2.0
+	$(MAKE) all PACKAGE=$(PACKAGE)_thin
+
 root: $(GLIB_DIR)
 	rm -rf root
 	mkdir -p root
@@ -28,6 +39,7 @@ root: $(GLIB_DIR)
 		./configure --prefix=/usr --host=arm-apple-darwin --disable-dependency-tracking \
 		--cache-file=glib-autoconf.cache --disable-libelf && \
 		$(MAKE) -j12 && $(MAKE) install DESTDIR=$(shell pwd)/root
+	tar czvf root.tar.gz root
 
 $(GLIB_DIR): ../libffi/root
 	wget -c https://ftp.gnome.org/pub/gnome/sources/glib/$(GLIB_VER)/glib-$(GLIB_VER).0.tar.xz
