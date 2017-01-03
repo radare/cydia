@@ -1,0 +1,2 @@
+i0nic's cracking utility for iOS
+dumpdecrypted is a dylib done by i0nic (see github) to decrypt iOS apps and dump the decrypted executable in the current directory.

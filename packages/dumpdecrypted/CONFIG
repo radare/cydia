@@ -1,0 +1,6 @@
+PACKAGE=dumpdecrypted
+VERSION=20160103
+ARCH=iphoneos-arm
+SECTION=user/shell
+PRIORITY=optional
+MAINTAINER=pancake <pancake@nopcode.org>
