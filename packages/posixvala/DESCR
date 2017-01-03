@@ -1,0 +1,2 @@
+Vala Compiler frontend to avoid the glib dependency
+Shellscript that wraps the needs to use GLIB to write Vala programs that only require libc
