@@ -1,0 +1,2 @@
+simple key-value database library and utility
+SDB is a simple in-memory k/v database with support for expire times.
