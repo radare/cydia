@@ -1,0 +1,3 @@
+manage compile and link flags for libraries
+pkg-config is a system for managing library compile and link flags that works with automake and autoconf.
+Increasingly libraries ship with ".pc" files that allow querying of the compiler and linker flags needed to use them through the pkg-config(1) program.
