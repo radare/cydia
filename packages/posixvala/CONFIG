@@ -1,5 +1,5 @@
 PACKAGE=posixvala
-VERSION=0.2
+VERSION=0.2.1
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional

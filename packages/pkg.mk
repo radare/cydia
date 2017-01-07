@@ -39,6 +39,7 @@ root.tar.gz: root
 	tar czf root.tar.gz root
 
 root: $(PKG_DIR)
+	echo $(PKG_DIR)
 	$(MAKE) pkg-build
 
 ifneq ($(PKG_URL),)
@@ -48,7 +49,14 @@ $(PKG_DIR): $(PKG_TAR)
 $(PKG_TAR):
 	wget -O "$(PKG_TAR)" -c "$(PKG_URL)"
 else
+ifneq ($(PKG_GIT),)
+$(PKG_DIR):
+	git clone $(PKG_GIT) $(PKG_DIR)
+else
+$(PKG_DIR):
 	@echo git maybe?
+	false
+endif
 endif
 
 PKG_CC_FLAGS=-arch armv7 -miphoneos-version-min=7.1

@@ -2,21 +2,20 @@ include ./CONFIG
 DEPENDS=
 PACKAGE_DIR?=${PWD}
 
-all: root
-	sudo rm -rf control data
-	${MAKE} clean
-	mkdir -p data
-	cp -rf root/* data
-	${MAKE} control
-	${MAKE} deb
+PKG_DIR=posixvala
+PKG_GIT=https://github.com/radare/posixvala
 
-root: posixvala
-	cd posixvala ; git pull ; $(MAKE) clean; $(MAKE) CC="xcrun --sdk iphoneos gcc -arch arm64" PREFIX=/usr
+all: root
+	$(MAKE) root-strip
+	$(MAKE) root-sign
+	$(MAKE) root-mkdeb
+
+pkg-build:
+	cd posixvala \
+		&& git pull \
+		&& $(MAKE) clean \
+		&& $(MAKE) CC="$(PKG_CC)" PREFIX=/usr
 	rm -rf root
-	mkdir -p root
 	$(MAKE) -C posixvala install DESTDIR=$(shell pwd)/root PREFIX=/usr
 
-posixvala:
-	git clone https://github.com/radare/posixvala
-
-include ../deb_hand.mak
+include ../pkg.mk

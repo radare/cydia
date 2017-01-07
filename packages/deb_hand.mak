@@ -128,4 +128,4 @@ push:
 	scp *.deb radare.org:/srv/http/radareorg/cydia/debs
 
 mrproper: clean
-	rm -rf root $(PKG_TAR) $(PKG_DIR)
+	rm -rf root.tar.gz root $(PKG_TAR) $(PKG_DIR)
