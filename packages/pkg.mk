@@ -47,18 +47,17 @@ $(PKG_DEP):
 root: $(PKG_DIR) $(PKG_DEP)
 	echo $(PKG_DIR)
 	$(MAKE) pkg-build
+REALSHA=$(shell sha1sum $(PKG_TAR) | cut -d ' ' -f 1)
 
 ifneq ($(PKG_URL),)
 $(PKG_DIR): $(PKG_TAR)
-	tar xzvf $(PKG_TAR)
-
-REALSHA=$(shell sha1sum $(PKG_TAR) | cut -d ' ' -f 1)
-
-$(PKG_SHA):
+ifneq ($(PKG_SHA),)
 	@echo Verifying checksum
 	[ "${REALSHA}" = "$(PKG_SHA)" ]
+endif
+	tar xzvf $(PKG_TAR)
 
-$(PKG_TAR): $(PKG_SHA)
+$(PKG_TAR):
 	wget -O "$(PKG_TAR)" -c "$(PKG_URL)"
 else
 ifneq ($(PKG_GIT),)
