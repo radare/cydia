@@ -48,7 +48,13 @@ ifneq ($(PKG_URL),)
 $(PKG_DIR): $(PKG_TAR)
 	tar xzvf $(PKG_TAR)
 
-$(PKG_TAR):
+REALSHA=$(shell sha1sum $(PKG_TAR) | cut -d ' ' -f 1)
+
+$(PKG_SHA):
+	@echo Verifying checksum
+	[ "${REALSHA}" = "$(PKG_SHA)" ]
+
+$(PKG_TAR): $(PKG_SHA)
 	wget -O "$(PKG_TAR)" -c "$(PKG_URL)"
 else
 ifneq ($(PKG_GIT),)
