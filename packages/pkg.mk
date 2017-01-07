@@ -40,7 +40,11 @@ root-thin: root.tar.gz
 root.tar.gz: root
 	tar czf root.tar.gz root
 
-root: $(PKG_DIR)
+$(PKG_DEP):
+	@echo Verifying dependency $@
+	[ -d ../$@/root ] || $(MAKE) -C ../$@/root
+
+root: $(PKG_DIR) $(PKG_DEP)
 	echo $(PKG_DIR)
 	$(MAKE) pkg-build
 

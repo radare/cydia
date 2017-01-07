@@ -7,6 +7,7 @@ PKG_DIR=$(PACKAGE)-$(VERSION)
 PKG_TAR=$(PKG_DIR).tar.gz
 PKG_URL=https://www.memcached.org/files/$(PKG_TAR)
 PKG_SHA=e343530c55946ccbdd78c488355b02eaf90b3b46
+PKG_DEP=libevent
 
 all: root
 	$(MAKE) root-strip
