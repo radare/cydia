@@ -80,8 +80,10 @@ endif
 ${PACKAGE_DIR}/debian-binary:
 	echo "2.0" > $@
 
-${PACKAGE_DIR}/clean:
-	rm -rf ${PACKAGE_DIR}/data ${PACKAGE_DIR}/control ${PACKAGE_DIR}/build *.deb
+${PACKAGE_DIR}/clean: $(PKG_CLEAN)
+	echo "REMOVING $(PKG_CLEAN)"
+	#rm -rf ${PACKAGE_DIR}/data ${PACKAGE_DIR}/control ${PACKAGE_DIR}/build *.deb
+	rm -rf data control build *.deb
 
 ${PACKAGE_DIR}/build: ${PACKAGE_DIR}/debian-binary ${PACKAGE_DIR}/control \
 			${PACKAGE_DIR}/data
@@ -118,7 +120,6 @@ clean: ${PACKAGE_DIR}/clean $(EXTRA_CLEAN)
 .PHONY: deb
 deb: ${PACKAGE_DIR}/${PACKAGE}_${VERSION}_${ARCH}.deb
 
-
 clobber::
 	rm -rf ${PACKAGE_DIR}/debian_binary ${PACKAGE_DIR}/control \
 		${PACKAGE_DIR}/data ${PACKAGE_DIR}/build
@@ -127,4 +128,4 @@ push:
 	scp *.deb radare.org:/srv/http/radareorg/cydia/debs
 
 mrproper: clean
-	rm -rf root
+	rm -rf root $(PKG_TAR) $(PKG_DIR)

@@ -1,28 +1,21 @@
 include ./CONFIG
+
 DEPENDS=
 PACKAGE_DIR?=${PWD}
 
+PKG_DIR=ired-$(VERSION)
+PKG_TAR=$(VERSION).tar.gz
+PKG_URL=https://github.com/radare/ired/archive/$(PKG_TAR)
+
 all: root
-	sudo rm -rf control data
-	${MAKE} clean
-	mkdir -p data
-	cp -rf root/* data
-	${MAKE} control
-	${MAKE} deb
+	$(MAKE) root-strip
+	$(MAKE) root-sign
+	$(MAKE) root-mkdeb
 
-root: $(VERSION).tar.gz
-	tar xzvf $(VERSION).tar.gz
-	cd ired-$(VERSION) ; $(MAKE) clean; $(MAKE) CC="xcrun --sdk iphoneos gcc -arch arm64" PREFIX=/usr
-	rm -rf root
-	mkdir -p root
-	cd ired-$(VERSION) ; $(MAKE) install DESTDIR=$(shell pwd)/root PREFIX=/usr
+pkg-build:
+	cd $(PKG_DIR) \
+	&& $(MAKE) clean \
+	&& $(MAKE) CC="$(PKG_CC)" PREFIX=/usr \
+	&& $(MAKE) install DESTDIR=$(shell pwd)/root PREFIX=/usr
 
-$(VERSION).tar.gz:
-	wget -c https://github.com/radare/ired/archive/$(VERSION).tar.gz
-
-EXTRA_CLEAN=custom_clean
-.PHONY: $(EXTRA_CLEAN)
-$(EXTRA_CLEAN):
-	rm -rf ired-$(VERSION) $(VERSION).tar.gz
-
-include ../deb_hand.mak
+include ../pkg.mk
