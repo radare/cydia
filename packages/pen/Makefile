@@ -2,25 +2,19 @@ include ./CONFIG
 DEPENDS=
 PACKAGE_DIR?=${PWD}
 
+PKG_DIR=pen
+PKG_GIT=https://github.com/UlricE/pen
+
 all: root
-	sudo rm -rf control data
-	${MAKE} clean
-	mkdir -p data
-	cp -rf root/* data
-	${MAKE} control
-	${MAKE} deb
+	$(MAKE) root-strip
+	$(MAKE) root-sign
+	$(MAKE) root-mkdeb
 
-pen:
-	git clone https://github.com/UlricE/pen
+pkg-build:
+	cd pen && aclocal ; autoconf ; automake --add-missing
+	export CC="$(PKG_CC)" ; cd pen ; \
+		./configure --host=$(PKG_HOST) --prefix=/usr \
+		&& $(MAKE) -j4
+	cd pen && $(MAKE) install DESTDIR=$(shell pwd)/root
 
-root: pen
-	cd pen ; aclocal ; autoconf ; automake --add-missing
-	export CC="xcrun --sdk iphoneos gcc -arch arm64" ; cd pen ; \
-	./configure --host=iphoneos-arm-darwin --prefix=/usr ; $(MAKE) -j4
-	cd pen ; $(MAKE) install DESTDIR=$(shell pwd)/root
-	
-EXTRA_CLEAN=myclean
-$(EXTRA_CLEAN):
-	rm -rf pen
-
-include ../deb_hand.mak
+include ../pkg.mk
