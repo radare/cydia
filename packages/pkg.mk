@@ -14,7 +14,7 @@ root-mkdeb:
 root-strip:
 	@echo Stripping binaries
 	@for a in $(shell find root -perm 0755 -type f) ; do \
-		xcrun --sdk iphoneos strip $$a ; \
+		sudo xcrun --sdk iphoneos strip $$a ; \
 	done || true
 
 root-sign:
