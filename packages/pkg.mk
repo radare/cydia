@@ -23,30 +23,31 @@ root-sign:
 	done || true
 
 # remove all extra
-root-thin: root.tar.gz
-	rm -rf root
-	tar xzf root.tar.gz
-	mkdir -p root/usr/bin
-	mv root/usr/lib/gettext/* root/usr/bin
+root-thin:
+	-mv root/usr/lib/gettext/* root/usr/bin
 	rm -rf root/usr/share
 	rm -rf root/usr/lib/pkgconfig
 	rm -rf root/usr/lib/gettext
 	rm -rf root/usr/include
 	rm -rf root/usr/lib/*.a
+	rm -rf root/usr/lib/*.la
 	rm -rf root/usr/lib/gio
 	rm -rf root/usr/lib/glib-2.0
+	rm -rf root/usr/man
+	rm -rf root/usr/bin/aalib-config
+	rm -rf root/usr/info
 #$(MAKE) all PACKAGE=$(PACKAGE)_thin
-
-root.tar.gz: root
-	tar czf root.tar.gz root
 
 $(PKG_DEP):
 	@echo Verifying dependency $@
 	[ -d ../$@/root ] || $(MAKE) -C ../$@/root
 
-root: $(PKG_DIR) $(PKG_DEP)
-	echo $(PKG_DIR)
-	$(MAKE) pkg-build
+root: $(PKG_DIR)
+	[ -d root ] || $(MAKE) pkg-build
+
+root.tar.gz: root
+	tar czf root.tar.gz root
+
 REALSHA=$(shell sha1sum $(PKG_TAR) | cut -d ' ' -f 1)
 
 ifneq ($(PKG_URL),)
@@ -75,9 +76,11 @@ PKG_CC_FLAGS=-arch armv7 -miphoneos-version-min=7.1
 PKG_CC=xcrun --sdk iphoneos gcc $(PKG_CC_FLAGS)
 PKG_CXX=xcrun --sdk iphoneos g++ $(PKG_CC_FLAGS)
 
+WHOAMI=$(shell whoami)
+
 PKG_CLEAN=pkg-clean
 $(PKG_CLEAN):
-	-sudo chown -R pancake data
+	-sudo chown -R $(WHOAMI) data
 
 .PHONY: $(PKG_CLEAN)
 
