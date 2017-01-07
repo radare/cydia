@@ -1,4 +1,4 @@
-PACKAGE=readline7
+PACKAGE=readline-dev
 VERSION=7.0
 ARCH=iphoneos-arm
 SECTION=user/shell

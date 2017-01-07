@@ -38,13 +38,15 @@ root-thin: root.tar.gz
 root.tar.gz: root
 	tar czf root.tar.gz root
 
-root: $(PKG_TAR)
+root: $(PKG_DIR)
 	$(MAKE) pkg-build
 
 ifneq ($(PKG_URL),)
+$(PKG_DIR): $(PKG_TAR)
+	tar xzvf $(PKG_TAR)
+
 $(PKG_TAR):
 	wget -O "$(PKG_TAR)" -c "$(PKG_URL)"
-	tar xzvf $(PKG_TAR)
 else
 	@echo git maybe?
 endif
