@@ -14,7 +14,7 @@ all: root
 
 pkg-build:
 	cd git-$(PKG_VER) && \
-	$(MAKE) CFLAGS="-DNO_ICONV=1 -UGIT_USE_READLINE -Os" MYLDFLAGS= MYLIBS=-ldl \
+	$(MAKE) CFLAGS="-DNO_ICONV=1 -UGIT_USE_READLINE" MYLDFLAGS= MYLIBS=-ldl \
 		CC="$(PKG_CC)" prefix=/usr NO_ICONV=1 NO_GETTEXT=1 NO_CURL=1 -j4
 	rm -rf root
 	cd git-$(PKG_VER) && $(MAKE) install prefix=/usr DESTDIR=$(shell pwd)/root PAGER_ENV= LV= NO_ICONV=1 NO_GETTEXT=1 NO_CURL=1

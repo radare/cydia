@@ -14,7 +14,7 @@ all: root
 
 pkg-build:
 	rm -rf root
-	cd readline-7.0 && \
+	cd $(PKG_DIR) && \
 		export CC="$(PKG_CC)" ; \
 		export CXX="$(PKG_CXX)" ; \
 		./configure --prefix=/usr --host=arm-apple-darwin --disable-shared --enable-static && \

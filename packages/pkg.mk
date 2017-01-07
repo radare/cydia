@@ -20,7 +20,7 @@ root-strip:
 root-sign:
 	@echo Signing binaries
 	@for a in $(shell find root -perm 0755 -type f) ; do \
-		xcrun --sdk iphoneos codesign -s- $$a ; \
+		sudo xcrun --sdk iphoneos codesign -s- -f $$a ; \
 	done || true
 
 # remove all extra
