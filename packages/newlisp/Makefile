@@ -2,30 +2,20 @@ include ./CONFIG
 DEPENDS=
 PACKAGE_DIR?=${PWD}
 
-PKG=newlisp-$(VERSION).tgz
-URL=http://www.newlisp.org/downloads/$(PKG)
+PKG_TAR=newlisp-$(VERSION).tgz
+PKG_URL=http://www.newlisp.org/downloads/$(PKG_TAR)
+PKG_SHA=8c256d134e4879d97f83087585cfe90d462def22
 
 all: root
-	sudo rm -rf control data
-	${MAKE} clean
-	mkdir -p data
-	cp -rf root/* data
-	${MAKE} control
-	${MAKE} deb
+	$(MAKE) root-strip
+	$(MAKE) root-sign
+	$(MAKE) root-mkdeb
 
-root: $(PKG)
-	cd newlisp-$(VERSION) ; $(MAKE) -f makefile_ios CC="xcrun --sdk iphoneos gcc -arch arm64 -arch armv7" prefix=/usr -j4
-	rm -rf root
-	cd newlisp-$(VERSION) ; $(MAKE) install prefix=$(shell pwd)/root/usr
+pkg-build:
 	cp makefile_ios newlisp-$(VERSION)
+	cd newlisp-$(VERSION) && $(MAKE) -f makefile_ios CC="$(PKG_CC)" prefix=/usr -j4
+	rm -rf root
+	mkdir -p root/usr/bin
+	cd newlisp-$(VERSION) && $(MAKE) install prefix=$(shell pwd)/root/usr
 
-$(PKG):
-	wget $(URL)
-	tar xzf $(PKG)
-
-EXTRA_CLEAN=custom_clean
-.PHONY: $(EXTRA_CLEAN)
-$(EXTRA_CLEAN):
-	rm -rf git-$(GIT_VERSION) v$(GIT_VERSION).tar.gz
-
-include ../deb_hand.mak
+include ../pkg.mk
