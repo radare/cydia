@@ -1,3 +1,5 @@
+PKG_DIR?=$(PACKAGE)
+
 root-mkdeb:
 	-sudo chown -R $(shell whoami) data
 	rm -rf control data
