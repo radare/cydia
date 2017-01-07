@@ -15,10 +15,28 @@ root-strip:
 	done || true
 
 root-sign:
-	@echo Stripping binaries
+	@echo Signing binaries
 	@for a in $(shell find root -perm 0755 -type f) ; do \
 		xcrun --sdk iphoneos codesign -s- $$a ; \
 	done || true
+
+# remove all extra
+root-thin: root.tar.gz
+	rm -rf root
+	tar xzf root.tar.gz
+	mkdir -p root/usr/bin
+	mv root/usr/lib/gettext/* root/usr/bin
+	rm -rf root/usr/share
+	rm -rf root/usr/lib/pkgconfig
+	rm -rf root/usr/lib/gettext
+	rm -rf root/usr/include
+	rm -rf root/usr/lib/*.a
+	rm -rf root/usr/lib/gio
+	rm -rf root/usr/lib/glib-2.0
+#$(MAKE) all PACKAGE=$(PACKAGE)_thin
+
+root.tar.gz: root
+	tar czf root.tar.gz root
 
 root: $(PKG_TAR)
 	$(MAKE) pkg-build
@@ -31,13 +49,13 @@ else
 	@echo git maybe?
 endif
 
-PKG_CC_FLAGS=-arch armv7 -arch arm64 -miphoneos-version-min=7.1
+PKG_CC_FLAGS=-arch armv7 -miphoneos-version-min=7.1
 PKG_CC=xcrun --sdk iphoneos gcc $(PKG_CC_FLAGS)
 PKG_CXX=xcrun --sdk iphoneos g++ $(PKG_CC_FLAGS)
 
 PKG_CLEAN=pkg-clean
 $(PKG_CLEAN):
-	sudo chown -R pancake data
+	-sudo chown -R pancake data
 
 .PHONY: $(PKG_CLEAN)
 

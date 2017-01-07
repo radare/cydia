@@ -1,45 +1,25 @@
 include ./CONFIG
+
 DEPENDS=
 PACKAGE_DIR?=${PWD}
 
+PKG_VER=$(VERSION)
+PKG_DIR=rsync-$(PKG_VER)
+PKG_TAR=$(PKG_DIR).tar.gz
+PKG_URL=https://download.samba.org/pub/rsync/src/$(PKG_TAR)
+
 all: root
-	sudo rm -rf control data
-	${MAKE} clean
-	mkdir -p data
-	cp -rf root/* data
-	${MAKE} control
-	${MAKE} deb
+	$(MAKE) root-strip
+	$(MAKE) root-sign
+	$(MAKE) root-mkdeb
 
-thin: root.tar.gz
+pkg-build:
 	rm -rf root
-	tar xzf root.tar.gz
-	mkdir -p root/usr/bin
-	mv root/usr/lib/gettext/* root/usr/bin
-	rm -rf root/usr/share
-	rm -rf root/usr/bin
-	rm -rf root/usr/lib/pkgconfig
-	rm -rf root/usr/lib/gettext
-	rm -rf root/usr/include
-	rm -rf root/usr/lib/*.a
-	rm -rf root/usr/lib/gio
-	rm -rf root/usr/lib/glib-2.0
-	$(MAKE) all PACKAGE=$(PACKAGE)_thin
+	cd rsync-3.1.2 && \
+		export CC="$(PKG_CC)" \
+		; export CXX="$(PKG_CXX)" \
+		&& ./configure --prefix=/usr --host=arm-apple-darwin \
+		&& $(MAKE) -j12 \
+		&& $(MAKE) install DESTDIR=$(shell pwd)/root
 
-root.tar.gz: root
-	tar czvf root.tar.gz root
-
-root: rsync-3.1.2
-	rm -rf root
-	mkdir -p root
-	cd rsync-3.1.2 ; \
-		export CC="xcrun --sdk iphoneos gcc -arch armv7" ; \
-		export CXX="xcrun --sdk iphoneos g++ -arch armv7" ; \
-		./configure --prefix=/usr --host=arm-apple-darwin ; \
-		$(MAKE) -j12 ; \
-		$(MAKE) install DESTDIR=$(shell pwd)/root
-
-rsync-3.1.2:
-	wget -c https://download.samba.org/pub/rsync/src/rsync-3.1.2.tar.gz
-	tar xzvf rsync-3.1.2.tar.gz
-
-include ../deb_hand.mak
+include ../pkg.mk
