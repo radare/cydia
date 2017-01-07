@@ -39,11 +39,11 @@ root: lftp-4.7.5
 		export LDFLAGS="-L$(shell pwd)/../ncurses/root/usr/lib $$LDFLAGS" ; \
 		export CFLAGS="-I$(shell pwd)/../zlib/root/usr/include $$CFLAGS" ; \
 		export LDFLAGS="$(shell pwd)/../zlib/root/usr/lib/libz.a $$LDFLAGS" ; \
+		export LDFLAGS="$(shell pwd)/../ncurses/root/usr/lib/libncurses.a $$LDFLAGS" ; \
 		export CXXFLAGS="$$CFLAGS" ; \
-		export CC="xcrun --sdk iphoneos gcc -arch armv7" ; \
-		export CXX="xcrun --sdk iphoneos g++ -arch armv7" ; \
-		sh
-	./configure --prefix=/usr --host=arm-apple-darwin --without-zlib \
+		export CC="xcrun --sdk iphoneos gcc -arch armv7 -miphoneos-version-min=7.1" ; \
+		export CXX="xcrun --sdk iphoneos g++ -arch armv7 -miphoneos-version-min=7.1" ; \
+		./configure --prefix=/usr --host=arm-apple-darwin --without-zlib \
 		--without-gnutls --disable-ipv6 && \
 		$(MAKE) -j12 ; \
 		$(MAKE) install DESTDIR=$(shell pwd)/root

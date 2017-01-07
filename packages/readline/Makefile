@@ -34,7 +34,7 @@ root: readline-7.0
 	cd readline-7.0 && \
 		export CC="xcrun --sdk iphoneos gcc -arch armv7" ; \
 		export CXX="xcrun --sdk iphoneos g++ -arch armv7" ; \
-		./configure --prefix=/usr --host=arm-apple-darwin && \
+		./configure --prefix=/usr --host=arm-apple-darwin --disable-shared --enable-static && \
 		$(MAKE) -j12 && \
 		$(MAKE) install DESTDIR=$(shell pwd)/root
 
