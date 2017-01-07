@@ -1,4 +1,5 @@
 PKG_DIR?=$(PACKAGE)
+PKG_VER?=$(VERSION)
 
 root-mkdeb:
 	-sudo chown -R $(shell whoami) data
@@ -57,6 +58,7 @@ ifneq ($(PKG_SHA),)
 	[ "${REALSHA}" = "$(PKG_SHA)" ]
 endif
 	tar xzvf $(PKG_TAR)
+	cd $(PKG_DIR) && for a in $(PKG_FIX) ; do patch -p0 < ../$$a ; done
 
 $(PKG_TAR):
 	wget -O "$(PKG_TAR)" -c "$(PKG_URL)"
