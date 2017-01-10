@@ -1,5 +1,5 @@
 PACKAGE=sdb
-VERSION=0.11.0
+VERSION=0.11.1
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional

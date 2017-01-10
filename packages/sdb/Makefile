@@ -2,34 +2,18 @@ include ./CONFIG
 DEPENDS=
 PACKAGE_DIR?=${PWD}
 
+PKG_URL=https://github.com/radare/sdb/archive/$(VERSION).tar.gz
+PKG_DIR=$(PACKAGE)-$(VERSION)
+PKG_TAR=$(PKG_DIR).tar.gz
+
 all: root
-	sudo rm -rf control data
-	${MAKE} clean
-	mkdir -p data
-	cp -rf root/* data
-	${MAKE} control
-	${MAKE} deb
+	$(MAKE) root-strip
+	$(MAKE) root-sign
+	$(MAKE) root-mkdeb
 
-thin: root.tar.gz
-	rm -rf root
-	tar xzf root.tar.gz
-	rm -rf root/usr/share
-	rm -rf root/usr/bin
-	rm -rf root/usr/lib/*.dylib
-	rm -rf root/usr/include
-	$(MAKE) all PACKAGE=$(PACKAGE)_thin
-
-root.tar.gz: root
-	tar czvf root.tar.gz root
-
-root: sdb-0.11.0
-	cd sdb-0.11.0 ; \
-		export CC="xcrun --sdk iphoneos gcc -arch arm64" ; \
-		$(MAKE) -j4 HAVE_VALA= ; \
+pkg-build:
+	cd sdb-$(VERSION) ; \
+		$(MAKE) -j4 HAVE_VALA= CC="$(PKG_CC)" ; \
 		$(MAKE) install DESTDIR=$(shell pwd)/root HAVE_VALA=
 
-sdb-0.11.0:
-	wget -c https://github.com/radare/sdb/archive/0.11.0.tar.gz
-	tar xzvf 0.11.0.tar.gz
-
-include ../deb_hand.mak
+include ../pkg.mk
