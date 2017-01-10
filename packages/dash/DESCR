@@ -1,0 +1,2 @@
+A POSIX Compliant Shell
+It can be installed as /bin/sh or as the default shell for either root or a second user with a userid of 0. It depends on fewer libraries than the Bash shell and is therefore less likely to be affected by an upgrade problem or disk failure. Dash is also useful for checking that a script is completely compatible with POSIX syntax.
