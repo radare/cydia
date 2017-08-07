@@ -1,0 +1,6 @@
+PACKAGE=openssh-ios
+VERSION=7.5
+ARCH=iphoneos-arm
+SECTION=user/shell
+PRIORITY=optional
+MAINTAINER=David Weinstein <dweinstein@nowsecure.com>

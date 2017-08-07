@@ -67,9 +67,16 @@ ifneq ($(PKG_GIT),)
 $(PKG_DIR):
 	git clone $(PKG_GIT) $(PKG_DIR)
 else
+ifneq ($(PKG_ZIP),)
+$(PKG_DIR):
+	wget -O "$(PKG_TAR)" -c "$(PKG_ZIP)"
+	mkdir -p $(PKG_DIR)
+	cd $(PKG_DIR) && unzip ../$(PKG_TAR)
+else
 $(PKG_DIR):
 	@echo git maybe?
 	false
+endif
 endif
 endif
 
