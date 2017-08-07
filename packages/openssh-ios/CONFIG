@@ -1,5 +1,5 @@
 PACKAGE=openssh-ios
-VERSION=7.5
+VERSION=7.5_1
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional

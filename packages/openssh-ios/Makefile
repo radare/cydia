@@ -12,13 +12,14 @@ all: root
 	$(MAKE) root-sign
 	$(MAKE) root-mkdeb
 
+PFX=/usr/local
+
 pkg-build:
-	mkdir -p ${PKG_DIR} \
-	mkdir -p root/usr/bin root/usr/sbin
-	mv ${PKG_DIR}/sshd root/usr/sbin
-	mv ${PKG_DIR}/sftp-server root/usr/sbin
-	mv ${PKG_DIR}/* root/usr/bin
-	chmod +x root/usr/*/*
+	mkdir -p ${PKG_DIR} root/$(PFX)/bin root/$(PFX)/sbin root/$(PFX)/libexec
+	mv ${PKG_DIR}/sshd root/$(PFX)/sbin
+	mv ${PKG_DIR}/sftp-server root/$(PFX)/libexec
+	mv ${PKG_DIR}/* root/$(PFX)/bin
+	chmod +x root/$(PFX)/*/*
 	sudo chown -R root root
 
 include ../pkg.mk
