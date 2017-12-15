@@ -1,0 +1,4 @@
+An iOS kernel introspection tool
+memctl is a kernel introspection tool that I developed to aid my security research into macOS and iOS. It facilitates reverse engineering and vulnerability analysis in the kernel. It is not a full-featured kernel debugger, but it can help illuminate what is happening in kernel memory.
+
+https://github.com/bazad/memctl

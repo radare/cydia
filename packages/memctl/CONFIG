@@ -1,0 +1,6 @@
+PACKAGE=memctl
+VERSION=2017.12
+ARCH=iphoneos-arm
+SECTION=user/shell
+PRIORITY=optional
+MAINTAINER=pancake <pancake@nopcode.org>
