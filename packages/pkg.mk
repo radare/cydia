@@ -73,9 +73,13 @@ $(PKG_DIR):
 	mkdir -p $(PKG_DIR)
 	cd $(PKG_DIR) && unzip ../$(PKG_TAR)
 else
+ifeq ($(PKG_ROOT),)
 $(PKG_DIR):
 	@echo git maybe?
 	false
+else
+$(PKG_DIR):
+endif
 endif
 endif
 endif
