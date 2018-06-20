@@ -1,5 +1,5 @@
 PACKAGE=libevent
-VERSION=2.0.22
+VERSION=2.1.8
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional

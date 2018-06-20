@@ -17,6 +17,7 @@ pkg-build:
 	cd $(PKG_DIR) && \
 		export CC="$(PKG_CC)" ; \
 		export CXX="$(PKG_CXX)" ; \
+		export CPP="$(PKG_CPP)" ; \
 		./configure --prefix=/usr --host=arm-apple-darwin --enable-static --disable-shared && \
 		$(MAKE) -j12 && \
 		$(MAKE) install DESTDIR=$(shell pwd)/root

@@ -1,5 +1,5 @@
 PACKAGE=memcached
-VERSION=1.4.33
+VERSION=1.5.8
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional
