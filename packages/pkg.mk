@@ -89,7 +89,8 @@ endif
 endif
 
 PKG_HOST=iphoneos-arm-darwin
-PKG_CC_FLAGS=-arch armv7 -miphoneos-version-min=7.1
+#PKG_CC_FLAGS=-arch armv7 -miphoneos-version-min=7.1
+PKG_CC_FLAGS=-arch armv7 -arch arm64 -miphoneos-version-min=7.1
 PKG_CC=xcrun --sdk iphoneos gcc $(PKG_CC_FLAGS)
 PKG_CXX=xcrun --sdk iphoneos g++ $(PKG_CC_FLAGS)
 
