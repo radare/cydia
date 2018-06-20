@@ -1,0 +1,2 @@
+ldid2 is a tool to sign MACH0 executables with an empty signature, for jailbroken arm64 devices
+Compiled code from git clone https://github.com/xerub/ldid
