@@ -17,10 +17,14 @@ root-strip:
 		sudo xcrun --sdk iphoneos strip $$a ; \
 	done || true
 
+ENT=$(shell pwd)/../ent.xml
+
 root-sign:
 	@echo Signing binaries
+	find root -perm 0755 -type f
 	@for a in $(shell find root -perm 0755 -type f) ; do \
-		sudo xcrun --sdk iphoneos codesign -s- -f $$a ; \
+		echo "[CODESIGN] $$a" ; \
+		sudo ldid2 -S${ENT} $$a ; \
 	done || true
 
 # remove all extra
