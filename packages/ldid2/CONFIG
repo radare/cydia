@@ -1,5 +1,5 @@
 PACKAGE=ldid2
-VERSION=20180619
+VERSION=20180620
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional
