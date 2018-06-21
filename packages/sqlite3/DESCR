@@ -1,2 +1,2 @@
-sqlite3 embedded database for the commandline
-SQLite is a self-contained, high-reliability, embedded, full-featured, public-domain, SQL database engine. SQLite is the most used database engine in the world.
+A command line interface and library for SQLite 3
+SQLite is a C library that implements an SQL database engine. Programs that link with the SQLite library can have SQL database access without running a separate RDBMS process.
