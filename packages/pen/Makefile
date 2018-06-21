@@ -12,7 +12,7 @@ all: root
 
 pkg-build:
 	cd pen && aclocal ; autoconf ; automake --add-missing
-	export CC="$(PKG_CC)" ; cd pen ; \
+	export CC="$(PKG_CC)" ; export CPP="/usr/bin/cpp" ; cd pen ; \
 		./configure --host=$(PKG_HOST) --prefix=/usr \
 		&& $(MAKE) -j4
 	cd pen && $(MAKE) install DESTDIR=$(shell pwd)/root
