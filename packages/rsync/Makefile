@@ -15,9 +15,10 @@ all: root
 
 pkg-build:
 	rm -rf root
-	cd rsync-3.1.2 && \
+	cd rsync-${PKG_VER} && \
 		export CC="$(PKG_CC)" \
 		; export CXX="$(PKG_CXX)" \
+		; export CPP="/usr/bin/cpp" \
 		&& ./configure --prefix=/usr --host=arm-apple-darwin \
 		&& $(MAKE) -j12 \
 		&& $(MAKE) install DESTDIR=$(shell pwd)/root
