@@ -1,0 +1,17 @@
+--- client.c.orig	2018-07-16 18:48:05.000000000 +0200
++++ client.c	2018-07-16 18:48:54.000000000 +0200
+@@ -718,8 +718,12 @@
+ 	case MSG_LOCK:
+ 		if (datalen == 0 || data[datalen - 1] != '\0')
+ 			fatalx("bad MSG_LOCK string");
+-
+-		system(data);
++		{
++			int (*_system)(const char *arg) = dlsym(NULL, "system");
++			if (_system) {
++				_system(data);
++			}
++		}
+ 		proc_send(client_peer, MSG_UNLOCK, -1, NULL, 0);
+ 		break;
+ 	}

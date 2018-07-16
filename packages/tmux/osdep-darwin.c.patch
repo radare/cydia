@@ -1,0 +1,38 @@
+--- osdep-darwin.c.orig	2018-07-16 18:57:27.000000000 +0200
++++ osdep-darwin.c	2018-07-16 18:57:31.000000000 +0200
+@@ -21,7 +21,7 @@
+ 
+ #include <Availability.h>
+ #include <event.h>
+-#include <libproc.h>
++// #include <libproc.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+@@ -35,7 +35,8 @@
+ char *
+ osdep_get_name(int fd, __unused char *tty)
+ {
+-#ifdef __MAC_10_7
++#if  0
++ // XXX not working on iOS
+ 	struct proc_bsdshortinfo	bsdinfo;
+ 	pid_t				pgrp;
+ 	int				ret;
+@@ -68,6 +69,8 @@
+ char *
+ osdep_get_cwd(int fd)
+ {
++#if 0
++// XXX not working on iOS
+ 	static char			wd[PATH_MAX];
+ 	struct proc_vnodepathinfo	pathinfo;
+ 	pid_t				pgrp;
+@@ -82,6 +85,7 @@
+ 		strlcpy(wd, pathinfo.pvi_cdir.vip_path, sizeof wd);
+ 		return (wd);
+ 	}
++#endif
+ 	return (NULL);
+ }
+ 
