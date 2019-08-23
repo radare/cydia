@@ -2,9 +2,11 @@ include ./CONFIG
 DEPENDS=
 PACKAGE_DIR?=${PWD}
 
-PKG_TAR=newlisp-$(VERSION).tgz
 PKG_URL=http://www.newlisp.org/downloads/$(PKG_TAR)
-PKG_SHA=8c256d134e4879d97f83087585cfe90d462def22
+PKG_FIX=patch-system.diff
+PKG_SHA=706fd8af9eb22e19a6f662a2a18fcbba083721db
+PKG_DIR=newlisp-$(VERSION)
+PKG_TAR=$(PKG_DIR).tgz
 
 all: root
 	$(MAKE) root-strip
