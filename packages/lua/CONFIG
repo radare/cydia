@@ -1,6 +1,5 @@
 PACKAGE=lua
-VERSION=5.3.3
-LUA_VERSION=5-3-3
+VERSION=5.3.5
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional
