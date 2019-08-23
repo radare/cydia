@@ -1,5 +1,5 @@
 PACKAGE=git
-VERSION=2.13.0
+VERSION=2.23.0
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional
