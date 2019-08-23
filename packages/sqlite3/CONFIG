@@ -1,5 +1,5 @@
 PACKAGE=sqlite3
-VERSION=3.24
+VERSION=3.29
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional
