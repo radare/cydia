@@ -1,5 +1,5 @@
 PACKAGE=acr
-VERSION=1.0
+VERSION=1.7.2
 ARCH=iphoneos-arm
 SECTION=user/shell
 PRIORITY=optional
